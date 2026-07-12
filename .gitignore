@@ -25,4 +25,7 @@ outputs/output_manifest.csv
 !outputs/analysis/.gitkeep
 !outputs/analysis/*.csv
 !outputs/analysis/*.md
+!outputs/analysis/ai_output_summary.json
 !outputs/vector_store/.gitkeep
+!outputs/vector_store/*.csv
+!outputs/vector_store/*.npy

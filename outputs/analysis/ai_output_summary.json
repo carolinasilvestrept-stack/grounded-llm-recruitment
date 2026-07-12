@@ -1,0 +1,6 @@
+{
+  "baseline_mean_alignment": 23.946666666666665,
+  "rag_mean_alignment": 28.59875,
+  "mean_alignment_difference_rag_minus_baseline": 4.652083333333334,
+  "mean_absolute_alignment_difference": 4.801805555555556
+}
