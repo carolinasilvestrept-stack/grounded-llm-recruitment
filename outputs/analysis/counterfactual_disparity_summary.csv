@@ -1,0 +1,5 @@
+system_condition,metric,n_cases,mean_counterfactual_range,median_counterfactual_range,max_counterfactual_range,mean_counterfactual_std
+baseline_llm,role_alignment_index,225,5.66,5.0,16.25,1.9689021275274152
+baseline_llm,supportiveness_index,225,12.978000000000002,12.5,37.5,5.061360772783813
+grounded_rag,role_alignment_index,225,6.253333333333333,6.25,16.25,2.17209026524159
+grounded_rag,supportiveness_index,225,16.138133333333332,14.290000000000006,44.44,6.133967894106544

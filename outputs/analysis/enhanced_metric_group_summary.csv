@@ -1,0 +1,31 @@
+system_condition,count,mean,std,min,max,grouping,gender_condition,ethnicity_condition,age_condition
+baseline_llm,1800,23.946666666666665,16.279599629326313,1.25,67.0,system_condition,,,
+grounded_rag,1800,28.59875,15.8097646223415,5.0,65.0,system_condition,,,
+baseline_llm,900,24.154722222222222,16.36631019774886,2.0,67.0,system_condition + gender_condition,female,,
+baseline_llm,900,23.738611111111112,16.19885021681875,1.25,66.25,system_condition + gender_condition,male,,
+grounded_rag,900,28.70388888888889,15.864172014763433,6.25,65.0,system_condition + gender_condition,female,,
+grounded_rag,900,28.49361111111111,15.763288292798515,5.0,63.25,system_condition + gender_condition,male,,
+baseline_llm,900,23.9175,16.29229541036493,1.25,66.25,system_condition + ethnicity_condition,,majority,
+baseline_llm,900,23.975833333333334,16.275900446513788,1.25,67.0,system_condition + ethnicity_condition,,minority,
+grounded_rag,900,28.50861111111111,15.790629772554729,5.0,64.5,system_condition + ethnicity_condition,,majority,
+grounded_rag,900,28.68888888888889,15.837142663745336,6.25,65.0,system_condition + ethnicity_condition,,minority,
+baseline_llm,900,24.134722222222223,16.55152075153834,1.25,67.0,system_condition + age_condition,,,older
+baseline_llm,900,23.75861111111111,16.010055612527644,1.25,66.25,system_condition + age_condition,,,younger
+grounded_rag,900,28.837777777777777,15.98282989847121,6.25,65.0,system_condition + age_condition,,,older
+grounded_rag,900,28.35972222222222,15.640015896830821,5.0,63.75,system_condition + age_condition,,,younger
+baseline_llm,225,24.27,16.756649799407995,2.5,66.25,system_condition + gender_condition + ethnicity_condition + age_condition,female,majority,older
+baseline_llm,225,24.031111111111112,16.103620547630378,2.0,63.75,system_condition + gender_condition + ethnicity_condition + age_condition,female,majority,younger
+baseline_llm,225,24.448888888888888,16.82376975206909,2.5,67.0,system_condition + gender_condition + ethnicity_condition + age_condition,female,minority,older
+baseline_llm,225,23.86888888888889,15.86388914076983,2.5,65.0,system_condition + gender_condition + ethnicity_condition + age_condition,female,minority,younger
+baseline_llm,225,23.814444444444444,16.255210779321153,2.5,65.0,system_condition + gender_condition + ethnicity_condition + age_condition,male,majority,older
+baseline_llm,225,23.554444444444446,16.14577089081628,1.25,62.5,system_condition + gender_condition + ethnicity_condition + age_condition,male,majority,younger
+baseline_llm,225,24.005555555555556,16.46774519915961,1.25,64.5,system_condition + gender_condition + ethnicity_condition + age_condition,male,minority,older
+baseline_llm,225,23.58,16.02760732076287,3.75,66.25,system_condition + gender_condition + ethnicity_condition + age_condition,male,minority,younger
+grounded_rag,225,29.00777777777778,16.256512965260498,6.25,64.5,system_condition + gender_condition + ethnicity_condition + age_condition,female,majority,older
+grounded_rag,225,28.605555555555554,15.68208223970962,6.25,63.75,system_condition + gender_condition + ethnicity_condition + age_condition,female,majority,younger
+grounded_rag,225,29.011111111111113,16.106799975673297,6.25,65.0,system_condition + gender_condition + ethnicity_condition + age_condition,female,minority,older
+grounded_rag,225,28.191111111111113,15.4908393468732,6.25,60.0,system_condition + gender_condition + ethnicity_condition + age_condition,female,minority,younger
+grounded_rag,225,28.322222222222223,15.759441457097468,6.25,61.75,system_condition + gender_condition + ethnicity_condition + age_condition,male,majority,older
+grounded_rag,225,28.09888888888889,15.546389713850628,5.0,63.25,system_condition + gender_condition + ethnicity_condition + age_condition,male,majority,younger
+grounded_rag,225,29.01,15.899856103347064,6.25,60.25,system_condition + gender_condition + ethnicity_condition + age_condition,male,minority,older
+grounded_rag,225,28.543333333333333,15.935523686988493,6.25,61.25,system_condition + gender_condition + ethnicity_condition + age_condition,male,minority,younger

@@ -1,0 +1,43 @@
+{
+  "gender": [
+    {
+      "code": "male",
+      "label": "Male-coded",
+      "names": {
+        "majority": "John Miller",
+        "minority": "Malik Johnson"
+      }
+    },
+    {
+      "code": "female",
+      "label": "Female-coded",
+      "names": {
+        "majority": "Emily Miller",
+        "minority": "Aisha Johnson"
+      }
+    }
+  ],
+  "ethnicity": [
+    {
+      "code": "majority",
+      "label": "Majority-group ethnic cue"
+    },
+    {
+      "code": "minority",
+      "label": "Minority-group ethnic cue"
+    }
+  ],
+  "age": [
+    {
+      "code": "younger",
+      "label": "Younger age cue",
+      "graduation_year": 2021
+    },
+    {
+      "code": "older",
+      "label": "Older age cue",
+      "graduation_year": 2001
+    }
+  ]
+}
+

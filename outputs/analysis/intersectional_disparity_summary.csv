@@ -1,0 +1,17 @@
+system_condition,gender_condition,ethnicity_condition,age_condition,n,mean_alignment,std_alignment
+baseline_llm,female,majority,older,75,24.27,16.74326900748647
+baseline_llm,female,majority,younger,75,24.03111111111111,16.079772357812754
+baseline_llm,female,minority,older,75,24.44888888888889,16.807573799839076
+baseline_llm,female,minority,younger,75,23.86888888888889,15.834164116026248
+baseline_llm,male,majority,older,75,23.814444444444444,16.248108999081897
+baseline_llm,male,majority,younger,75,23.554444444444442,16.121648878528607
+baseline_llm,male,minority,older,75,24.005555555555556,16.444980233337922
+baseline_llm,male,minority,younger,75,23.58,16.011646708890698
+grounded_rag,female,majority,older,75,29.00777777777778,16.22934222478068
+grounded_rag,female,majority,younger,75,28.605555555555554,15.652807587950006
+grounded_rag,female,minority,older,75,29.011111111111113,16.088883263442018
+grounded_rag,female,minority,younger,75,28.191111111111113,15.464630606639126
+grounded_rag,male,majority,older,75,28.32222222222222,15.744435914387735
+grounded_rag,male,majority,younger,75,28.098888888888887,15.53266376522854
+grounded_rag,male,minority,older,75,29.01,15.88988809096979
+grounded_rag,male,minority,younger,75,28.543333333333333,15.907739820168866

@@ -1,0 +1,61 @@
+file,check,status,detail
+baseline_outputs.csv,row_count,ok,1800
+baseline_outputs.csv,column:system_condition,ok,
+baseline_outputs.csv,column:model,ok,
+baseline_outputs.csv,column:run_id,ok,
+baseline_outputs.csv,column:variant_id,ok,
+baseline_outputs.csv,column:base_candidate_id,ok,
+baseline_outputs.csv,column:job_id,ok,
+baseline_outputs.csv,column:gender_condition,ok,
+baseline_outputs.csv,column:ethnicity_condition,ok,
+baseline_outputs.csv,column:age_condition,ok,
+baseline_outputs.csv,column:candidate_summary,ok,
+baseline_outputs.csv,column:job_relevant_strengths,ok,
+baseline_outputs.csv,column:job_relevant_concerns,ok,
+baseline_outputs.csv,column:structured_observations,ok,
+baseline_outputs.csv,column:role_alignment_indicators,ok,
+baseline_outputs.csv,column:supporting_evidence,ok,
+baseline_outputs.csv,column:limits_of_assessment,ok,
+baseline_outputs.csv,column:supportiveness_index,ok,
+baseline_outputs.csv,column:role_alignment_index,ok,
+baseline_outputs.csv,numeric:role_alignment_index,ok,missing=0; out_of_range=0
+baseline_outputs.csv,numeric:supportiveness_index,ok,missing=0; out_of_range=0
+baseline_outputs.csv,json:job_relevant_strengths,ok,failures_in_first_100=0
+baseline_outputs.csv,json:job_relevant_concerns,ok,failures_in_first_100=0
+baseline_outputs.csv,json:structured_observations,ok,failures_in_first_100=0
+baseline_outputs.csv,json:role_alignment_indicators,ok,failures_in_first_100=0
+baseline_outputs.csv,json:supporting_evidence,ok,failures_in_first_100=0
+baseline_outputs.csv,json:limits_of_assessment,ok,failures_in_first_100=0
+baseline_outputs.csv,coverage:gender_condition,ok,female; male
+baseline_outputs.csv,coverage:ethnicity_condition,ok,majority; minority
+baseline_outputs.csv,coverage:age_condition,ok,older; younger
+rag_outputs.csv,row_count,ok,1800
+rag_outputs.csv,column:system_condition,ok,
+rag_outputs.csv,column:model,ok,
+rag_outputs.csv,column:run_id,ok,
+rag_outputs.csv,column:variant_id,ok,
+rag_outputs.csv,column:base_candidate_id,ok,
+rag_outputs.csv,column:job_id,ok,
+rag_outputs.csv,column:gender_condition,ok,
+rag_outputs.csv,column:ethnicity_condition,ok,
+rag_outputs.csv,column:age_condition,ok,
+rag_outputs.csv,column:candidate_summary,ok,
+rag_outputs.csv,column:job_relevant_strengths,ok,
+rag_outputs.csv,column:job_relevant_concerns,ok,
+rag_outputs.csv,column:structured_observations,ok,
+rag_outputs.csv,column:role_alignment_indicators,ok,
+rag_outputs.csv,column:supporting_evidence,ok,
+rag_outputs.csv,column:limits_of_assessment,ok,
+rag_outputs.csv,column:supportiveness_index,ok,
+rag_outputs.csv,column:role_alignment_index,ok,
+rag_outputs.csv,numeric:role_alignment_index,ok,missing=0; out_of_range=0
+rag_outputs.csv,numeric:supportiveness_index,ok,missing=0; out_of_range=0
+rag_outputs.csv,json:job_relevant_strengths,ok,failures_in_first_100=0
+rag_outputs.csv,json:job_relevant_concerns,ok,failures_in_first_100=0
+rag_outputs.csv,json:structured_observations,ok,failures_in_first_100=0
+rag_outputs.csv,json:role_alignment_indicators,ok,failures_in_first_100=0
+rag_outputs.csv,json:supporting_evidence,ok,failures_in_first_100=0
+rag_outputs.csv,json:limits_of_assessment,ok,failures_in_first_100=0
+rag_outputs.csv,coverage:gender_condition,ok,female; male
+rag_outputs.csv,coverage:ethnicity_condition,ok,majority; minority
+rag_outputs.csv,coverage:age_condition,ok,older; younger

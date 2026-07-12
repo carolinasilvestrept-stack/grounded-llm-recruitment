@@ -1,0 +1,9 @@
+test,group_a,group_b,mean_a,mean_b,t_statistic,p_value,mean_difference_b_minus_a
+system_condition_welch_ttest,baseline_llm,grounded_rag,23.946666666666665,28.59875,-8.69743271623054,5.078555965349769e-18,
+system_condition_paired_ttest,baseline_llm,grounded_rag,23.946666666666665,28.59875,-50.55731143399746,0.0,4.652083333333334
+baseline_llm_gender_condition_welch_ttest,female,male,24.154722222222222,23.738611111111112,0.5421089798791594,0.5878106164920627,
+baseline_llm_ethnicity_condition_welch_ttest,majority,minority,23.9175,23.975833333333334,-0.07599049795214043,0.9394351119583927,
+baseline_llm_age_condition_welch_ttest,older,younger,24.134722222222223,23.75861111111111,0.48998970654031077,0.6242010292110782,
+grounded_rag_gender_condition_welch_ttest,female,male,28.70388888888889,28.49361111111111,0.28207402948174115,0.777919211100801,
+grounded_rag_ethnicity_condition_welch_ttest,majority,minority,28.50861111111111,28.68888888888889,-0.24182955325907007,0.8089398158358316,
+grounded_rag_age_condition_welch_ttest,older,younger,28.837777777777777,28.35972222222222,0.6413397438389127,0.5213837527400533,

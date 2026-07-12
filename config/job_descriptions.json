@@ -1,0 +1,238 @@
+[
+  {
+    "job_id": "data_analyst",
+    "job_title": "Data Analyst",
+    "role_summary": "Analyze business data, prepare dashboards, and communicate insights to support operational and strategic decision-making.",
+    "main_responsibilities": [
+      "Clean, transform, and analyze structured datasets",
+      "Build dashboards and recurring reports",
+      "Identify trends and communicate findings to stakeholders",
+      "Support data quality and documentation practices"
+    ],
+    "required_qualifications": [
+      "Bachelor's degree in data analytics, statistics, computer science, business, or a related field",
+      "Experience with spreadsheet analysis and SQL",
+      "Ability to communicate analytical findings clearly"
+    ],
+    "required_skills": [
+      "SQL",
+      "Excel",
+      "Data visualization",
+      "Statistical analysis",
+      "Communication"
+    ],
+    "preferred_skills": [
+      "Python",
+      "Power BI",
+      "Tableau",
+      "A/B testing"
+    ],
+    "evaluation_criteria": [
+      {
+        "criterion": "Relevant analytical experience",
+        "weight": 30
+      },
+      {
+        "criterion": "Technical skills match",
+        "weight": 30
+      },
+      {
+        "criterion": "Education and certifications",
+        "weight": 20
+      },
+      {
+        "criterion": "Communication and problem-solving evidence",
+        "weight": 20
+      }
+    ]
+  },
+  {
+    "job_id": "software_developer",
+    "job_title": "Software Developer",
+    "role_summary": "Develop, test, and maintain software applications while collaborating with cross-functional teams.",
+    "main_responsibilities": [
+      "Implement application features",
+      "Write maintainable and tested code",
+      "Debug software issues",
+      "Collaborate with product and engineering teams"
+    ],
+    "required_qualifications": [
+      "Bachelor's degree in computer science, software engineering, or equivalent experience",
+      "Experience with at least one general-purpose programming language",
+      "Understanding of software development practices"
+    ],
+    "required_skills": [
+      "Programming",
+      "Debugging",
+      "Version control",
+      "Testing",
+      "Problem solving"
+    ],
+    "preferred_skills": [
+      "Python",
+      "JavaScript",
+      "APIs",
+      "Cloud platforms"
+    ],
+    "evaluation_criteria": [
+      {
+        "criterion": "Relevant software development experience",
+        "weight": 35
+      },
+      {
+        "criterion": "Technical skills match",
+        "weight": 35
+      },
+      {
+        "criterion": "Education and training",
+        "weight": 15
+      },
+      {
+        "criterion": "Collaboration and problem-solving evidence",
+        "weight": 15
+      }
+    ]
+  },
+  {
+    "job_id": "marketing_specialist",
+    "job_title": "Marketing Specialist",
+    "role_summary": "Plan and execute marketing campaigns, analyze campaign performance, and support brand communication activities.",
+    "main_responsibilities": [
+      "Develop campaign materials",
+      "Monitor campaign performance metrics",
+      "Support content creation across digital channels",
+      "Coordinate with sales and design teams"
+    ],
+    "required_qualifications": [
+      "Bachelor's degree in marketing, communications, business, or a related field",
+      "Experience with digital marketing channels",
+      "Strong written communication skills"
+    ],
+    "required_skills": [
+      "Digital marketing",
+      "Campaign analysis",
+      "Content writing",
+      "Communication",
+      "Project coordination"
+    ],
+    "preferred_skills": [
+      "SEO",
+      "Google Analytics",
+      "Social media management",
+      "Email marketing"
+    ],
+    "evaluation_criteria": [
+      {
+        "criterion": "Relevant marketing experience",
+        "weight": 30
+      },
+      {
+        "criterion": "Campaign and analytics skills",
+        "weight": 30
+      },
+      {
+        "criterion": "Education and certifications",
+        "weight": 20
+      },
+      {
+        "criterion": "Communication and creativity evidence",
+        "weight": 20
+      }
+    ]
+  },
+  {
+    "job_id": "hr_coordinator",
+    "job_title": "HR Coordinator",
+    "role_summary": "Support recruitment, onboarding, employee records, and HR operations in a structured and compliant manner.",
+    "main_responsibilities": [
+      "Coordinate interview scheduling and candidate communication",
+      "Maintain employee records",
+      "Support onboarding processes",
+      "Assist with HR reporting and policy documentation"
+    ],
+    "required_qualifications": [
+      "Bachelor's degree in human resources, psychology, business, or a related field",
+      "Knowledge of HR processes",
+      "Strong organizational and communication skills"
+    ],
+    "required_skills": [
+      "HR administration",
+      "Recruitment coordination",
+      "Communication",
+      "Organization",
+      "Confidentiality"
+    ],
+    "preferred_skills": [
+      "Applicant tracking systems",
+      "HR analytics",
+      "Employment law awareness",
+      "Onboarding tools"
+    ],
+    "evaluation_criteria": [
+      {
+        "criterion": "Relevant HR or administrative experience",
+        "weight": 30
+      },
+      {
+        "criterion": "HR process and tool knowledge",
+        "weight": 25
+      },
+      {
+        "criterion": "Education and training",
+        "weight": 20
+      },
+      {
+        "criterion": "Communication, organization, and confidentiality evidence",
+        "weight": 25
+      }
+    ]
+  },
+  {
+    "job_id": "project_manager",
+    "job_title": "Project Manager",
+    "role_summary": "Coordinate project planning, execution, stakeholder communication, and risk management across teams.",
+    "main_responsibilities": [
+      "Create and maintain project plans",
+      "Track deliverables, risks, and timelines",
+      "Coordinate cross-functional stakeholders",
+      "Report project progress and blockers"
+    ],
+    "required_qualifications": [
+      "Bachelor's degree in business, management, engineering, or a related field",
+      "Experience coordinating projects or teams",
+      "Strong communication and planning skills"
+    ],
+    "required_skills": [
+      "Project planning",
+      "Stakeholder management",
+      "Risk tracking",
+      "Communication",
+      "Organization"
+    ],
+    "preferred_skills": [
+      "Agile methods",
+      "Jira",
+      "MS Project",
+      "Process improvement"
+    ],
+    "evaluation_criteria": [
+      {
+        "criterion": "Relevant project coordination experience",
+        "weight": 35
+      },
+      {
+        "criterion": "Planning and stakeholder management skills",
+        "weight": 30
+      },
+      {
+        "criterion": "Education and certifications",
+        "weight": 15
+      },
+      {
+        "criterion": "Communication and problem-solving evidence",
+        "weight": 20
+      }
+    ]
+  }
+]
+

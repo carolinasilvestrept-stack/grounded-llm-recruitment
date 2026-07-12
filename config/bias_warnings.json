@@ -1,0 +1,18 @@
+{
+  "gender": {
+    "default": "Gender-related cues may bias your evaluation. Focus only on job-relevant qualifications, skills, experience, and role requirements.",
+    "male": "Male-coded cues may bias assumptions about leadership, technical competence, or role fit. Evaluate only resume evidence and job criteria.",
+    "female": "Female-coded cues may bias assumptions about leadership, technical competence, commitment, or role fit. Evaluate only resume evidence and job criteria."
+  },
+  "ethnicity": {
+    "default": "Ethnicity-related cues may bias your evaluation. Do not infer language ability, cultural fit, nationality, or competence from a name or identity cue.",
+    "majority": "Majority-group name cues may create familiarity bias. Apply the same job-relevant criteria used for all candidates.",
+    "minority": "Minority-group name cues may create ethnicity-based bias. Do not infer cultural fit, language ability, nationality, or competence from the candidate name."
+  },
+  "age": {
+    "default": "Age-related cues may bias your evaluation. Do not infer adaptability, ambition, reliability, or ability from graduation year or career-timeline cues.",
+    "younger": "Younger-age cues may bias assumptions about maturity, reliability, or experience. Evaluate only demonstrated job-relevant evidence.",
+    "older": "Older-age cues may bias assumptions about adaptability, ambition, technology use, or long-term fit. Evaluate only demonstrated job-relevant evidence."
+  },
+  "combined": "Intersectional combinations of gender, ethnicity, and age cues may bias evaluation. Check that the score and recommendation are justified only by job-relevant evidence."
+}
