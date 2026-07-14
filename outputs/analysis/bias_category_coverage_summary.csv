@@ -1,3 +1,3 @@
 system_condition,gender_bias,ethnicity_name_bias,age_graduation_bias,education_prestige_bias,career_gap_bias,counterfactual_consistency
 baseline_llm,0.0,5.0,3.6111111111111107,99.27777777777777,9.166666666666666,0.5
-grounded_rag,100.0,100.0,100.0,98.33333333333333,17.333333333333336,99.27777777777777
+grounded_rag,100.0,100.0,100.0,98.27777777777777,18.444444444444443,99.77777777777777

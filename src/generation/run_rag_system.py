@@ -97,7 +97,7 @@ def load_inputs(candidates_path: Path, jobs_path: Path, limit: Optional[int]) ->
         raise FileNotFoundError(f"Job descriptions not found at {jobs_path}.")
     candidates = pd.read_csv(candidates_path)
     jobs = pd.read_csv(jobs_path)
-    require_columns(candidates, ["variant_id", "base_candidate_id", "gender_condition", "ethnicity_condition", "age_condition", "controlled_resume_text"], candidates_path)
+    require_columns(candidates, ["variant_id", "base_candidate_id", "gender_condition", "ethnicity_condition", "age_condition", "controlled_resume_text", "core_resume_text"], candidates_path)
     require_columns(jobs, ["job_id", "job_title", "role_summary", "main_responsibilities", "required_qualifications", "required_skills", "preferred_skills", "evaluation_criteria"], jobs_path)
     candidates = candidates.head(limit) if limit else candidates
     candidates["_join_key"] = 1
@@ -114,7 +114,13 @@ def format_job_description(row: pd.Series) -> str:
 
 
 def build_retrieval_query(row: pd.Series) -> str:
-    return f"Fair structured hiring guidance. Job: {format_job_description(row)} Candidate: {row['controlled_resume_text']}"
+    # Uses core_resume_text (job-relevant qualifications only, no name or
+    # demographic-cue labels) rather than controlled_resume_text, so that
+    # retrieval is not influenced by demographic cues. The actual evaluation
+    # prompt sent to the LLM (build_grounded_user_message) still uses
+    # controlled_resume_text, since the counterfactual manipulation itself
+    # requires the model to see the demographic cues.
+    return f"Fair structured hiring guidance. Job: {format_job_description(row)} Candidate: {row['core_resume_text']}"
 
 
 def hash_embedding(text: str, dimensions: int = 384) -> np.ndarray:
@@ -417,11 +423,11 @@ def call_openai_with_retry(
     api_provider: str,
     max_retries: int = 5,
     base_sleep: float = 2.0,
-) -> Dict[str, object]:
+) -> Tuple[Dict[str, object], int]:
     last_error: Exception | None = None
     for attempt in range(1, max_retries + 1):
         try:
-            return call_openai(client, model, system_prompt, user_message, api_provider)
+            return call_openai(client, model, system_prompt, user_message, api_provider), attempt
         except Exception as exc:
             last_error = exc
             message = str(exc).lower()
@@ -442,6 +448,12 @@ def call_openai_with_retry(
                     "unterminated string",
                     "expecting value",
                     "expecting property name",
+                    "connection error",
+                    "apiconnectionerror",
+                    "connecterror",
+                    "getaddrinfo",
+                    "dns",
+                    "network",
                 ]
             )
             if not retryable or attempt == max_retries:
@@ -487,12 +499,13 @@ def serialize(value) -> str:
     return str(value) if value is not None else ""
 
 
-def build_output_record(row: pd.Series, result: Dict[str, object], retrieved: List[Dict[str, object]], warnings: List[Dict[str, str]], model: str, embedding_provider: str, run_id: int) -> Dict[str, object]:
+def build_output_record(row: pd.Series, result: Dict[str, object], retrieved: List[Dict[str, object]], warnings: List[Dict[str, str]], model: str, embedding_provider: str, run_id: int, attempts: int = 1) -> Dict[str, object]:
     return {
         "system_condition": "grounded_rag",
         "model": model,
         "embedding_provider": embedding_provider,
         "run_id": run_id,
+        "generation_attempts": attempts,
         "variant_id": row["variant_id"],
         "base_candidate_id": row["base_candidate_id"],
         "job_id": row["job_id"],
@@ -618,11 +631,12 @@ def run(args: argparse.Namespace) -> None:
             warnings = build_bias_warnings(row, warning_config)
             if args.dry_run:
                 result = dry_run_evaluation(row, retrieved_context, warnings)
+                attempts = 1
             else:
-                result = call_openai_with_retry(client, args.model, system_prompt, build_grounded_user_message(row, retrieved_context, warnings), args.api_provider)
+                result, attempts = call_openai_with_retry(client, args.model, system_prompt, build_grounded_user_message(row, retrieved_context, warnings), args.api_provider)
                 if args.sleep_seconds:
                     time.sleep(args.sleep_seconds)
-            records.append(build_output_record(row, result, retrieved, warnings, args.model, args.embedding_provider, run_id))
+            records.append(build_output_record(row, result, retrieved, warnings, args.model, args.embedding_provider, run_id, attempts))
             completed_keys.add(key)
             completed += 1
             print(f"[{completed}/{total}] run {run_id} {row['variant_id']} / {row['job_id']} -> role_alignment_index={result['role_alignment_index']}")

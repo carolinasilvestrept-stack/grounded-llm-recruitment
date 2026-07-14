@@ -33,8 +33,8 @@ SAMPLE_JOBS_PATH = PROJECT_DIR / "data" / "sample" / "job_descriptions_sample.cs
 
 
 
-def load_prompt() -> str:
-    return PROMPT_PATH.read_text(encoding="utf-8")
+def load_prompt(prompt_path: Path = None) -> str:
+    return (prompt_path or PROMPT_PATH).read_text(encoding="utf-8")
 
 
 def require_columns(frame: pd.DataFrame, columns: List[str], path: Path) -> None:
@@ -275,11 +275,11 @@ def call_openai_with_retry(
     api_provider: str,
     max_retries: int = 5,
     base_sleep: float = 2.0,
-) -> Dict[str, object]:
+) -> Tuple[Dict[str, object], int]:
     last_error: Exception | None = None
     for attempt in range(1, max_retries + 1):
         try:
-            return call_openai(client, model, system_prompt, user_message, api_provider)
+            return call_openai(client, model, system_prompt, user_message, api_provider), attempt
         except Exception as exc:
             last_error = exc
             message = str(exc).lower()
@@ -332,11 +332,12 @@ def serialize(value) -> str:
     return str(value) if value is not None else ""
 
 
-def build_output_record(row: pd.Series, result: Dict[str, object], model: str, run_id: int) -> Dict[str, object]:
-    return {
-        "system_condition": "baseline_llm",
+def build_output_record(row: pd.Series, result: Dict[str, object], model: str, run_id: int, attempts: int = 1, system_condition: str = "baseline_llm") -> Dict[str, object]:
+    record = {
+        "system_condition": system_condition,
         "model": model,
         "run_id": run_id,
+        "generation_attempts": attempts,
         "variant_id": row["variant_id"],
         "base_candidate_id": row["base_candidate_id"],
         "job_id": row["job_id"],
@@ -355,6 +356,14 @@ def build_output_record(row: pd.Series, result: Dict[str, object], model: str, r
         "role_alignment_index": result["role_alignment_index"],
         "raw_response": result.get("raw_response", ""),
     }
+    # Present only when the prompt requests them (e.g. the grounded prompt,
+    # or the ablation_fields_no_retrieval prompt); harmless no-op for the
+    # standard baseline prompt, which does not include these fields.
+    if "bias_awareness_notes" in result:
+        record["bias_awareness_notes"] = serialize(result["bias_awareness_notes"])
+    if "fairness_guidance" in result:
+        record["fairness_guidance"] = serialize(result["fairness_guidance"])
+    return record
 
 def save_outputs(records: List[Dict[str, object]], output_prefix: str) -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -414,7 +423,7 @@ def run(args: argparse.Namespace) -> None:
         return
     candidates_path = SAMPLE_CANDIDATES_PATH if args.use_sample else Path(args.candidates)
     jobs_path = SAMPLE_JOBS_PATH if args.use_sample else Path(args.jobs)
-    system_prompt = load_prompt()
+    system_prompt = load_prompt(Path(args.prompt_file) if args.prompt_file else None)
     inputs = load_inputs(candidates_path, jobs_path, args.limit)
     args.api_provider = resolve_api_provider(args.api_provider)
     args.model = resolve_model(args.model, args.api_provider)
@@ -435,11 +444,12 @@ def run(args: argparse.Namespace) -> None:
                 continue
             if args.dry_run:
                 result = dry_run_evaluation(row)
+                attempts = 1
             else:
-                result = call_openai_with_retry(client, args.model, system_prompt, build_user_message(row), args.api_provider)
+                result, attempts = call_openai_with_retry(client, args.model, system_prompt, build_user_message(row), args.api_provider)
                 if args.sleep_seconds:
                     time.sleep(args.sleep_seconds)
-            records.append(build_output_record(row, result, args.model, run_id))
+            records.append(build_output_record(row, result, args.model, run_id, attempts, args.system_condition))
             completed_keys.add(key)
             completed += 1
             print(f"[{completed}/{total}] run {run_id} {row['variant_id']} / {row['job_id']} -> role_alignment_index={result['role_alignment_index']}")
@@ -457,6 +467,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--jobs", default=str(DEFAULT_JOBS_PATH))
     parser.add_argument("--limit", type=int, default=None)
     parser.add_argument("--output-prefix", default="baseline_outputs")
+    parser.add_argument("--prompt-file", default=None, help="Override path to the system prompt file (used for ablation conditions).")
+    parser.add_argument("--system-condition", default="baseline_llm", help="Label written to the system_condition column (override for ablation conditions).")
     parser.add_argument("--sleep-seconds", type=float, default=0.0)
     parser.add_argument("--checkpoint-every", type=int, default=25)
     parser.add_argument("--runs", type=int, default=1)

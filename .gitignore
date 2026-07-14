@@ -22,6 +22,8 @@ outputs/output_manifest.csv
 !outputs/ai/.gitkeep
 !outputs/ai/baseline_outputs.csv
 !outputs/ai/rag_outputs.csv
+!outputs/ai/ablation_fields_no_retrieval_outputs.csv
+!outputs/ai/rag_outputs_leaky_query_original.csv
 !outputs/analysis/.gitkeep
 !outputs/analysis/*.csv
 !outputs/analysis/*.md

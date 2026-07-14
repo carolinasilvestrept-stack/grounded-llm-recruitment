@@ -94,13 +94,16 @@ def build_llm():
 
 def build_question(row: pd.Series) -> str:
     """Reconstruct the exact retrieval query text the pipeline used at generation
-    time: build_retrieval_query() in run_rag_system.py. Requires the row to be
-    pre-merged with controlled_candidate_profiles.csv and job_descriptions.csv,
-    since rag_outputs.csv itself only carries job_title, not the full job
-    description or resume text."""
-    if pd.isna(row.get("controlled_resume_text")) or pd.isna(row.get("role_summary")):
+    time: build_retrieval_query() in run_rag_system.py. Uses core_resume_text
+    (job-relevant qualifications only, no name or demographic-cue labels), matching
+    the fixed retrieval query, so that Faithfulness/Context Utilization are scored
+    against the same text that was actually used to search the vector store.
+    Requires the row to be pre-merged with controlled_candidate_profiles.csv and
+    job_descriptions.csv, since rag_outputs.csv itself only carries job_title, not
+    the full job description or resume text."""
+    if pd.isna(row.get("core_resume_text")) or pd.isna(row.get("role_summary")):
         return "Evaluate this candidate for this role."
-    return f"Fair structured hiring guidance. Job: {format_job_description(row)} Candidate: {row['controlled_resume_text']}"
+    return f"Fair structured hiring guidance. Job: {format_job_description(row)} Candidate: {row['core_resume_text']}"
 
 
 def _join_fields(row: pd.Series, columns: list[str]) -> str:
@@ -152,8 +155,9 @@ def build_contexts(row: pd.Series) -> list[str]:
 
 
 def main(args: argparse.Namespace) -> None:
-    if not RAG_OUTPUT.exists():
-        print(f"Missing {RAG_OUTPUT}. Run the generation pipeline first.")
+    rag_output = Path(args.rag_output) if args.rag_output else RAG_OUTPUT
+    if not rag_output.exists():
+        print(f"Missing {rag_output}. Run the generation pipeline first.")
         sys.exit(1)
     for path in (CANDIDATES_PATH, JOBS_PATH):
         if not path.exists():
@@ -162,8 +166,8 @@ def main(args: argparse.Namespace) -> None:
 
     from ragas.metrics.collections import ContextUtilization, Faithfulness
 
-    df = pd.read_csv(RAG_OUTPUT)
-    candidates = pd.read_csv(CANDIDATES_PATH)[["variant_id", "controlled_resume_text"]]
+    df = pd.read_csv(rag_output)
+    candidates = pd.read_csv(CANDIDATES_PATH)[["variant_id", "core_resume_text"]]
     jobs = pd.read_csv(JOBS_PATH)
     df = df.merge(candidates, on="variant_id", how="left").merge(jobs, on="job_id", how="left", suffixes=("", "_job"))
     print(f"Loaded {len(df)} grounded RAG records.")
@@ -226,9 +230,13 @@ def main(args: argparse.Namespace) -> None:
         print(f"[{i + 1}/{sample_size}] faithfulness={record.get('faithfulness')} "
               f"context_utilization={record.get('context_utilization')}", flush=True)
 
+    stem = rag_output.stem
+    tag = stem[len("rag_outputs"):].lstrip("_") if stem.startswith("rag_outputs") else stem
+    suffix = f"_{tag}" if tag else ""
+
     results_df = pd.DataFrame(results)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    by_case_path = OUT_DIR / "ragas_evaluation_by_case.csv"
+    by_case_path = OUT_DIR / f"ragas_evaluation_by_case{suffix}.csv"
     results_df.to_csv(by_case_path, index=False)
 
     valid = results_df.dropna(subset=["faithfulness", "context_utilization"], how="all")
@@ -258,7 +266,7 @@ def main(args: argparse.Namespace) -> None:
             f"min={series.min():.3f}, max={series.max():.3f}, n={len(series)}"
         )
 
-    summary_path = OUT_DIR / "ragas_evaluation_summary.md"
+    summary_path = OUT_DIR / f"ragas_evaluation_summary{suffix}.md"
     summary_path.write_text("\n".join(summary_lines) + "\n", encoding="utf-8")
 
     print()
@@ -271,6 +279,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run Ragas Faithfulness and Context Utilization on a sample of the grounded RAG condition.")
     parser.add_argument("--sample-size", type=int, default=150)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--rag-output", default=None, help="Path to the grounded RAG output CSV to evaluate. Defaults to outputs/ai/rag_outputs.csv.")
     return parser.parse_args()
 
 
